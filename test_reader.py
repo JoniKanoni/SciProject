@@ -24,4 +24,4 @@ def test_unendlich():
     assert last == lasttest
     assert interpolation == interpolationtest
     assert numinterpol == numinterpolationtest
-    assert np.array_equal(rest,resttest)
+    assert np.array_equal(rest, resttest)

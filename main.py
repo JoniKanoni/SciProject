@@ -8,9 +8,9 @@ import interpolate as ip
 
 
 def main():
-    mass, xmin, xmax, xnum, first_egival, last_eigval, inttype, numinterpol, potential = reader.getdata()
-    print(ip.interpol(potential[:,0],potential[:,1],inttype)(0))
+    mass, xmin, xmax, xnum, first_egival, last_eigval, inttype, numinterpol, pot = reader.getdata()
+    print(ip.interpol(pot[:, 0], pot[:, 1], inttype)(0))
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()
