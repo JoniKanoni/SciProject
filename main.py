@@ -9,7 +9,10 @@ import interpolate as ip
 
 def main():
     mass, xmin, xmax, xnum, first_egival, last_eigval, inttype, numinterpol, pot = reader.getdata()
-    print(ip.interpol(pot[:, 0], pot[:, 1], inttype)(0))
+    int_fct = ip.interpol(pot[:, 0], pot[:, 1], inttype)
+    potential = ip.potential_grid(xmin, xmax, xnum, int_fct)
+    print(potential[xnum//2,:], potential[0,:])
+    
 
 
 if __name__ == '__main__':
