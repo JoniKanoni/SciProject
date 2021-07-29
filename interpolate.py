@@ -1,18 +1,28 @@
+
 '''
 Module with multiple options to interpolate a given function
 '''
 
 from scipy.interpolate import CubicSpline, interp1d, lagrange
 
-def interpolatierer(xx, yy, inttype):
+def interpol(xx, yy, inttype):
     '''
-    dgiuohdshodgiho
+    Function that creates an interpolation function based on Input
+
+    Args:
+        xx:         known x-values
+        yy:         known y-values
+        inttype:    Type of desired kind of interpolation
+
+    returns:
+        int_fct:    function that returns new y-value for arbitrary x-value,
+                    based on the interpolation
     '''
 
     if inttype == 'linear':
-        resultpot = interp1d(xx,yy, kind='linear')
+        int_fct = interp1d(xx, yy, kind='linear')
     elif inttype == 'cspline':
-        resultpot = CubicSpline(xx,yy, bc_type='natural')
+        int_fct = CubicSpline(xx, yy, bc_type='natural')
     elif inttype == 'polynomial':
-        resultpot = lagrange(xx,yy)
-    return resultpot
+        int_fct = lagrange(xx, yy)
+    return int_fct
