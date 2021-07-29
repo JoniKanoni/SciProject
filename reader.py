@@ -23,7 +23,13 @@ def getdata():
         potential:      2D Array of the Potential ([:,1]) and corresponding
                         x-values([:,0])
     '''
-    inputpath = "schrodinger.inp" #pylint: disable=line-too-long
+    try: 
+        inputpath = "schroodinger.inp"
+        open(inputpath)  
+    except: 
+        inputpath = input("give data: pls give path danke schön wunder bar ")
+        
+
     with open(inputpath, "r") as data:
         masse = data.readline()
         masse = float(masse.replace(' # mass', ''))
@@ -50,3 +56,19 @@ def getdata():
         potential = np.loadtxt(data.readlines())
 
     return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, potential
+
+masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, potential =   getdata()
+print(masse)
+
+
+'''
+
+def savedata( ):
+
+
+    np.savetxt(   , 'potential.dat'    )
+    np.savetxt(   , 'energies.dat'    )
+    np.savetxt(   , 'wavefuncs.dat'    )
+    np.savetxt(   , 'expvalues.dat'    )
+
+'''
