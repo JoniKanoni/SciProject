@@ -15,7 +15,7 @@ def test_unendlich():
     interpolationtest = 'linear'
     numinterpolationtest = 2
     resttest = np.array([[-2.0, 0.0], [2.0, 0.0]])
-    masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, rest = reader.getdata('sciproject')
+    masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, rest = reader.getdata()
     assert masse == massetest
     assert xmin == xmintest
     assert xmax == xmaxtest
@@ -24,4 +24,4 @@ def test_unendlich():
     assert last == lasttest
     assert interpolation == interpolationtest
     assert numinterpol == numinterpolationtest
-    assert np.array_equal(rest,resttest)
+    assert np.array_equal(rest, resttest)
