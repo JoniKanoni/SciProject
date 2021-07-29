@@ -5,13 +5,13 @@ Module with multiple options to interpolate a given function
 import numpy as np
 from scipy.interpolate import CubicSpline, interp1d, lagrange
 
-def interpol(xx, yy, inttype):
+def interpol(xvalues, yvalues, inttype):
     '''
     Function that creates an interpolation function based on Input
 
     Args:
-        xx:         known x-values
-        yy:         known y-values
+        xvalues:    known x-values
+        yvalues:    known y-values
         inttype:    Type of desired kind of interpolation
 
     returns:
@@ -20,11 +20,11 @@ def interpol(xx, yy, inttype):
     '''
 
     if inttype == 'linear':
-        int_fct = interp1d(xx, yy, kind='linear')
+        int_fct = interp1d(xvalues, yvalues, kind='linear')
     elif inttype == 'cspline':
-        int_fct = CubicSpline(xx, yy, bc_type='natural')
+        int_fct = CubicSpline(xvalues, yvalues, bc_type='natural')
     elif inttype == 'polynomial':
-        int_fct = lagrange(xx, yy)
+        int_fct = lagrange(xvalues, yvalues)
     return int_fct
 
 def potential_grid(xmin, xmax, xnum, int_fct):
