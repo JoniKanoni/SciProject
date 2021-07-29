@@ -34,7 +34,7 @@ def getdata():
         xmin, xmax, xnum = minmax
         xmin = float(xmin)
         xmax = float(xmax)
-        xnum = float(xnum)
+        xnum = int(xnum)
         firstlast = data.readline()
         firstlast = firstlast.replace('# first and last eigenvalue to print', '')
         first, last = firstlast.split()
