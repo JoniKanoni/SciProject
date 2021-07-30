@@ -48,8 +48,8 @@ def diag_solver(mass, potential, xnum, first_val, last_val):
     """
 
     a = 1/(mass * (potential[1,0] - potential[0,0])**2)
-    diagonal = potential[1:xnum,1] + a
-    neben_diagonal = np.zeros((xnum-1,1))
+    diagonal = potential[1:xnum+1,1] + a
+    neben_diagonal = np.zeros((xnum-1))
     neben_diagonal[:] = - a / 2
-    eigvals, wavefuncs = la.eigh_tridiagonal(diagonal, neben_diagonal, (first_val, last_val))
+    eigvals, wavefuncs = la.eigh_tridiagonal(diagonal, neben_diagonal, select='i', select_range=(first_val, last_val))
     return eigvals, wavefuncs
