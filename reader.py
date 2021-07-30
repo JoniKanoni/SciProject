@@ -3,6 +3,7 @@ Module that reads data
 '''
 import os.path
 import numpy as np
+from git.refs.head import HEAD
 
 
 
