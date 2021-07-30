@@ -23,13 +23,11 @@ def getdata():
         potential:      2D Array of the Potential ([:,1]) and corresponding
                         x-values([:,0])
     '''
-    try: 
-        inputpath = "schroodinger.inp"
-        open(inputpath)  
-    except: 
+    try:
+        inputpath = "schrodinger.inp"
+        open(inputpath)
+    except:
         inputpath = input("give data: pls give path danke schön wunder bar ")
-        
-
     with open(inputpath, "r") as data:
         masse = data.readline()
         masse = float(masse.replace(' # mass', ''))
@@ -53,22 +51,22 @@ def getdata():
         numinterpol = numinterpol.replace('# nr. of interpolation points and xy declarations', '')
         numinterpol = numinterpol.strip()
         numinterpol = float(numinterpol)
-        potential = np.loadtxt(data.readlines())
+        pot = np.loadtxt(data.readlines())
 
-    return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, potential
-
-masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, potential =   getdata()
-print(masse)
+    return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, pot
 
 
-'''
 
-def savedata( ):
+def savedata(save_path, potential):
+    '''
+    inputpath/savepath als global?
+    '''
 
+    np.savetxt(save_path, 'potential.dat')
 
-    np.savetxt(   , 'potential.dat'    )
-    np.savetxt(   , 'energies.dat'    )
-    np.savetxt(   , 'wavefuncs.dat'    )
-    np.savetxt(   , 'expvalues.dat'    )
+    np.savetxt(save_path, 'energies.dat')
 
-'''
+    np.savetxt(save_path, 'wavefuncs.dat')
+
+    np.savetxt(save_path, 'expvalues.dat')
+    
