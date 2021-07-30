@@ -9,10 +9,10 @@ import solver
 
 
 def main():
-    mass, xmin, xmax, xnum, first_egival, last_eigval, inttype, numinterpol, pot = reader.getdata()
+    mass, xmin, xmax, xnum, first_val, last_val, inttype, numinterpol, pot = reader.getdata()
     int_fct = ip.interpol(pot[:, 0], pot[:, 1], inttype)
     potential = ip.potential_grid(xmin, xmax, xnum, int_fct)
-    print(solver.hamilton_operator(potential, mass, xnum))
+    print(solver.diag_solver(mass, potential, xnum, first_val, last_val))
     
     
 
