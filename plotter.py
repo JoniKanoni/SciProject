@@ -1,3 +1,6 @@
+'''
+Reads files, makes plots
+'''
 import os.path
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +22,7 @@ def read_data():
 
     energies_path = os.path.join(path, 'energies.dat')
     potential_path = os.path.join(path, 'potential.dat')
-    wavefuncs_path = os.path.join(path, 'wavefuncs.dat') 
+    wavefuncs_path = os.path.join(path, 'wavefuncs.dat')
     expvalues_path = os.path.join(path, 'expvalues.dat')
 
     energies = np.loadtxt(energies_path)
@@ -28,20 +31,23 @@ def read_data():
     expvalues = np.loadtxt(expvalues_path)
 
     return energies, potential, wavefuncs, expvalues
-    
-
-
-
 
 def ploty():
     '''
-
+    gggg
     '''
-    a, b, c, d = read_data()
-    
-    plt.plot(a, b)
+    energies, potential, wavefuncs, expvalues = read_data()
+
+    plt.subplot(1,2,1)
+    plt.plot(potential[:, 0],potential[:,1])
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
+    plt.hlines(energies,0)
     plt.xlabel('x [Bohr]' )
-    plt.ylabel('Energy [Hartree]')   
+    plt.ylabel('Energy [Hartree]')
+
+    plt.subplot(1,2,2)
+    plt.title(r'$ \sigma_x $')
+    plt.xlabel('x [Bohr]')
+    plt.plot(potential,potential)
     plt.show()
 ploty()
