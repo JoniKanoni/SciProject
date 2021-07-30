@@ -26,7 +26,7 @@ def read_data(path):
     wavefuncs = np.loadtxt(wavefuncs_path)
     expvalues = np.loadtxt(expvalues_path)
 
-    return
+    return energies, potential, wavefuncs, expvalues
     
 
 
@@ -35,4 +35,11 @@ def ploty():
     '''
 
     '''
-
+    x = [1,2,3,4,5]
+    potential = [0,4,5,6,7]
+    plt.plot(x, potential)
+    plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
+    plt.xlabel('x [Bohr]' )
+    plt.ylabel('Energy [Hartree]')   
+    plt.show()
+ploty()

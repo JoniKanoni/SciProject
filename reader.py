@@ -63,9 +63,9 @@ def savedata(save_path, potential, energies, wavefuncs, expvalues):
     '''
 
 
-
+    
     np.savetxt(save_path, 'potential.dat')
-
+        
     np.savetxt(save_path, 'energies.dat')
 
     np.savetxt(save_path, 'wavefuncs.dat')
