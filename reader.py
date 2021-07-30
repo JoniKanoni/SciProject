@@ -57,10 +57,12 @@ def getdata():
 
 
 
-def savedata(save_path, potential):
+def savedata(save_path, potential, energies, wavefuncs, expvalues):
     '''
     inputpath/savepath als global?
     '''
+
+
 
     np.savetxt(save_path, 'potential.dat')
 
