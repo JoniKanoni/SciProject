@@ -29,7 +29,7 @@ def read_data():
 
     return energies, potential, wavefuncs, expvalues
     
-a, b, c, d = read_data()
+
 
 
 
@@ -37,9 +37,9 @@ def ploty():
     '''
 
     '''
-    x = [1,2,3,4,5]
-    potential = [0,4,5,6,7]
-    plt.plot(x, potential)
+    a, b, c, d = read_data()
+    
+    plt.plot(a, b)
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
     plt.xlabel('x [Bohr]' )
     plt.ylabel('Energy [Hartree]')   
