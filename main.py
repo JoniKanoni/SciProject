@@ -12,8 +12,9 @@ def main():
     mass, xmin, xmax, xnum, first_val, last_val, inttype, numinterpol, pot = reader.getdata()
     int_fct = ip.interpol(pot[:, 0], pot[:, 1], inttype)
     potential = ip.potential_grid(xmin, xmax, xnum, int_fct)
-    print(solver.diag_solver(mass, potential, xnum, first_val, last_val))
+    eigenvalue, wavefuncs = (solver.diag_solver(mass, potential, xnum, first_val, last_val))
     
+    reader.savedata('results/infinite_well/', potential, potential, wavefuncs, wavefuncs)
     
 
 

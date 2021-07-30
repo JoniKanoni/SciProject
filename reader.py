@@ -57,18 +57,18 @@ def getdata():
 
 
 
-def savedata(save_path, potential, energies, wavefuncs, expvalues):
+def savedata(savepath, potential, energies, wavefuncs, expvalues):
     '''
     inputpath/savepath als global?
     '''
 
 
 
-    np.savetxt(save_path, 'potential.dat')
+    np.savetxt(os.path.join(savepath, 'potential.dat'), potential)
 
-    np.savetxt(save_path, 'energies.dat')
+    np.savetxt(os.path.join(savepath, 'energies.dat'), energies)
 
-    np.savetxt(save_path, 'wavefuncs.dat')
+    np.savetxt(os.path.join(savepath, 'wavefuncs.dat'), wavefuncs)
 
-    np.savetxt(save_path, 'expvalues.dat')
+    np.savetxt(os.path.join(savepath, 'expvalues.dat'), expvalues)
     
