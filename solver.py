@@ -51,5 +51,7 @@ def diag_solver(mass, potential, xnum, first_val, last_val):
     diagonal = potential[1:xnum+1,1] + a
     neben_diagonal = np.zeros((xnum-1))
     neben_diagonal[:] = - a / 2
-    eigvals, wavefuncs = la.eigh_tridiagonal(diagonal, neben_diagonal, select='i', select_range=(first_val, last_val))
+    eigvals, h_wavefuncs = la.eigh_tridiagonal(diagonal, neben_diagonal, select='i', select_range=(first_val, last_val))
+    wavefuncs = np.zeros((last_val-first_val+2,xnum+2))
+    wavefuncs[:,1:xnum+1] = h_wavefuncs
     return eigvals, wavefuncs
