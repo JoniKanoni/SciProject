@@ -41,7 +41,7 @@ def ploty():
     plt.subplot(1,2,1)
     plt.plot(potential[:, 0],potential[:,1])
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
-    plt.hlines(energies,0)
+    #plt.hlines()
     plt.xlabel('x [Bohr]' )
     plt.ylabel('Energy [Hartree]')
 
