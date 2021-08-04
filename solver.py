@@ -20,16 +20,16 @@ def hamilton_operator(potential, mass, xnum):
     """
 
     ham = np.zeros((xnum-2, xnum-2))
-    a = 1/(mass * (potential[1,0] - potential[0,0]))
+    a = 1/(mass * (potential[1,0] - potential[0,0])**2)
     for ii in range(0,xnum-2):
         if ii - 1 >= 0:
-            ham[ii, ii - 1] = - 1 / (2 * a)
+            ham[ii, ii - 1] = - a / 2
         if ii + 1 < xnum-2:
-            ham[ii, ii + 1] = - 1 / (2 * a)
-        ham[ii, ii] = potential[ii+1, 1]
+            ham[ii, ii + 1] = - a / 2
+        ham[ii, ii] = potential[ii+1, 1] + a
     return ham
 
-def diag_solver(mass, potential, xnum, first_val, last_val):
+def diag_solver(hamiltonian, xnum, first_val, last_val):
     """
     Function that diagonalizes the hamiltonian
     
@@ -46,12 +46,11 @@ def diag_solver(mass, potential, xnum, first_val, last_val):
         eigvals:    1D Array that contains the n eigenvalues
         wavefuncs:  n-D Array that contains the corresponding wavefuncs
     """
-
-    a = 1/(mass * (potential[1,0] - potential[0,0])**2)
-    diagonal = potential[1:xnum+1,1] + a
-    neben_diagonal = np.zeros((xnum-1))
-    neben_diagonal[:] = - a / 2
-    eigvals, h_wavefuncs = la.eigh_tridiagonal(diagonal, neben_diagonal, select='i', select_range=(first_val, last_val))
-    wavefuncs = np.zeros((last_val-first_val+2,xnum+2))
-    wavefuncs[:,1:xnum+1] = h_wavefuncs
+    eigvals, wavefuncs = la.eigh(hamiltonian, eigvals = (0,5))
+    """
+    wavefuncs = np.zeros((xnum+2,last_val-first_val+2))
+    print(np.shape(h_wavefuncs))
+    print(np.shape(wavefuncs))
+    wavefuncs[:,1:xnum+1] = h_wavefuncs[:,:]
+    """
     return eigvals, wavefuncs
