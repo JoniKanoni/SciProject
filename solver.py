@@ -54,3 +54,20 @@ def diag_solver(hamiltonian, xnum, first_val, last_val):
     wavefuncs[:,1:xnum+1] = h_wavefuncs[:,:]
     """
     return eigvals, wavefuncs
+
+def Integrate(fct,xvals):
+    """
+    function that numerically integrates a 1D function in the form of an array over a given
+    xvalue grid
+    
+    Args:
+        fct:        1D array that contains the values of the function
+        xvals:      1D array of corresponding xvalues (have to be equidistant)
+                    (Integration considers order by comparing the first two elements
+                    ---> Switching these elements results in sign change)
+        
+    Returns:
+        Integral:   Value of the Integral (float)
+    """
+    Integral = np.sum(fct) * (xvals[1] - xvals[0])
+    return Integral
