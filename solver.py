@@ -88,3 +88,22 @@ def QM_Norming(fct, xvals):
     """
     fct_normed = fct / Integrate(np.square(np.abs(fct)), xvals)
     return fct_normed
+
+def QM_position_info(wavefunc, xvals)
+    """
+    Function that computes the expectation value for the position of a particle, as well
+    as the uncertainty of the position based on given 1D-wavefunction and xvalue grid.
+    The function is assumed to be 0 outside the grid.
+    
+    Args:
+        wavefunc:   1D array of values of a wavefunction
+        xvals:      1D array of the corresponding x values
+    
+    Returns:
+        exp_x:      Expectationvalue for the position (float)
+        unc_x:      Uncertainty of position (float)
+    """
+    exp_x = Integrate(np.square(np.abs(wavefunc))*xval)
+    exp_x2 = Integrate(np.square(np.abs(wavefunc))*np.square(xval))
+    unc_x = np.sqrt(exp_x2-exp_x**2)
+    return exp_x, unc_x
