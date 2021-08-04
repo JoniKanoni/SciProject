@@ -6,6 +6,9 @@ import reader
 import interpolate as ip
 import solver
 import plotter
+import numpy as np
+#Deleted a bunch of useless commands and maybe some usefull here but simple ones for merge
+#and to make everything simple and understandable again
 
 
 def main():
@@ -13,10 +16,6 @@ def main():
     int_fct = ip.interpol(pot[:, 0], pot[:, 1], inttype)
     potential = ip.potential_grid(xmin, xmax, xnum, int_fct)
     eigenvalue, wavefuncs = (solver.diag_solver(mass, potential, xnum, first_val, last_val))
-    
-    reader.savedata('results/infinite_well/', potential, eigenvalue, wavefuncs, wavefuncs)
-    plotter()
-
 
 if __name__ == '__main__':
     main()
