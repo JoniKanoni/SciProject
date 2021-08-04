@@ -71,3 +71,20 @@ def Integrate(fct,xvals):
     """
     Integral = np.sum(fct) * (xvals[1] - xvals[0])
     return Integral
+
+def QM_Norming(fct, xvals):
+    """
+    Function that norms a L2-function (standard norm of QM) based on given xvalue grid.
+    The function is assumed to be 0 outside the grid.
+    
+    Args:
+        fct:        1D array that contains the values of the function
+        xvals:      1D array of corresponding xvalues (have to be equidistant)
+                    (Integration goes from first xvalue to last xvalue
+                    ---> Order of values matters!!!)
+    
+    Returns:
+        fct_normed: 1D Array that contains the values of the normed function
+    """
+    fct_normed = fct / Integrate(np.square(np.abs(fct)), xvals)
+    return fct_normed
