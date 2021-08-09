@@ -16,11 +16,9 @@ def main():
     #get data
     mass, xmin, xmax, xnum, first_val, last_val, inttype, numinterpol, pot, inputpath = reader.getdata()
 
-    #interpolate data
-    int_fct = ip.interpol(pot[:, 0], pot[:, 1], inttype)
-    potential = ip.potential_grid(xmin, xmax, xnum, int_fct)
-
-    hamiltonian = solver.hamilton_operator(potential, mass, xnum)
+    #interpolate data and create hamiltonian
+    potential = ip.potential_grid(xmin, xmax, xnum, pot[:, 0], pot[:, 1], inttype)
+    hamiltonian = ip.hamilton_operator(potential, mass, xnum)
 
     #find Eigenvalues and Eigenvectors
     energies, eigenvec = (solver.diag_solver(hamiltonian, xnum, first_val, last_val))
