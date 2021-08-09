@@ -5,6 +5,7 @@ Main routine for solving a stationary 1D Schroedinger equation
 import reader
 import interpolate as ip
 import solver
+#import plotter
 import plotter
 import numpy as np
 #Deleted a bunch of useless commands and maybe some usefull here but simple ones for merge
