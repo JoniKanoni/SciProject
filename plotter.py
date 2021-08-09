@@ -34,26 +34,49 @@ def read_data():
 
 def ploty():
     '''
-    
+    Plots the wavefunctions, energies and expected values calculated by the solver
+
+    Args:
+        ggd
+        gggg
 
     
     '''
     energies, potential, wavefuncs, expvalues = read_data()
-
-    scale = input('Scale pls ')
+    question =  input('Use auto generated settings? (Y/N) ')
+    
+    if question == 'Y' or question == 'y':
+        xmin = min(wavefuncs[:,0])
+        xmax = max(wavefuncs[:,0])
+        
+        ymin = 0
+        ymax = np.amax(wavefuncs[:,1:]) + max(energies)
+        
+        scale = 0.3
+    else: 
+        print('fuck you')    
+        scale = input('Scale pls ')
+        xmin, xmax = [float(ii) for ii in input('Xmin, xmax pls, serparted by space ').split() ]
+        ymin, ymax = [float(ii) for ii in input('Ymin, Ymax pls ').split() ]
+        
+    
     plt.subplot(1,2,1)
     for ii in range(len(energies)):
-        plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii])
+        plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii], )
+    plt.xlim(xmin, xmax )
+    plt.ylim(ymin, ymax)
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
     plt.hlines(energies,-2,2, colors= 'grey')
     plt.xlabel('x [Bohr]' )
     plt.ylabel('Energy [Hartree]')
 
     plt.subplot(1,2,2)
+    plt.xlim(0, 1.1*np.amax(expvalues[:,1]))
+    plt.ylim(ymin, ymax)
     plt.hlines(energies,0,2, colors='grey')
     plt.title(r'$ \sigma_x $')
     plt.xlabel('x [Bohr]')
     plt.plot(expvalues[:,1],energies, 'x')
     plt.show()
-
+    
 ploty()
