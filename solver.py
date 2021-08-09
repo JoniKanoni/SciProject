@@ -72,6 +72,8 @@ def Integrate(fct,xvals):
     Integral = np.sum(fct) * (xvals[1] - xvals[0])
     return Integral
 
+
+
 def QM_Norming(fct, xvals):
     """
     Function that norms a L2-function (standard norm of QM) based on given xvalue grid.
@@ -86,8 +88,10 @@ def QM_Norming(fct, xvals):
     Returns:
         fct_normed: 1D Array that contains the values of the normed function
     """
-    fct_normed = fct / Integrate(np.square(np.abs(fct)), xvals)
+    fct_normed = fct / np.sqrt(Integrate(np.square(np.abs(fct)), xvals))
     return fct_normed
+
+
 
 def QM_position_info(wavefunc, xvals):
     """

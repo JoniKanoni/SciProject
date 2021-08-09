@@ -42,7 +42,7 @@ def potential_grid(xmin, xmax, xnum, int_fct):
                     the potential in the second column
     """
 
-    potential = np.zeros((xnum+2,2))
-    potential[:,0] = np.linspace(xmin, xmax, xnum+2)
+    potential = np.zeros((xnum,2))
+    potential[:,0] = np.linspace(xmin, xmax, xnum)
     potential[:,1] = int_fct(potential[:,0])
     return potential
