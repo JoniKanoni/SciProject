@@ -24,11 +24,13 @@ def getdata():
                         x-values([:,0])
     '''
     try:
-        inputpath = "schrodinger.inp"
-        open(inputpath)
+        inputpath = '' #"schrodinger.inp" 
+        open("schrodinger.inp")
+        inputdata = 'schrodinger.inp'
     except:
         inputpath = input("give data: pls give path danke schön wunder bar ")
-    with open(inputpath, "r") as data:
+        inputdata = os.path.join(inputpath, 'schrodinger.inp')
+    with open(inputdata, "r") as data:
         masse = data.readline()
         masse = float(masse.replace(' # mass', ''))
 
@@ -53,7 +55,7 @@ def getdata():
         numinterpol = float(numinterpol)
         pot = np.loadtxt(data.readlines())
 
-    return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, pot
+    return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, pot, inputpath
 
 
 
