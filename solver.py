@@ -46,7 +46,7 @@ def diag_solver(hamiltonian, xnum, first_val, last_val):
         eigvals:    1D Array that contains the n eigenvalues
         wavefuncs:  n-D Array that contains the corresponding wavefuncs
     """
-    eigvals, wavefuncs = la.eigh(hamiltonian, eigvals = (0,5))
+    eigvals, wavefuncs = la.eigh(hamiltonian, eigvals = (first_val-1,last_val-1))
     """
     wavefuncs = np.zeros((xnum+2,last_val-first_val+2))
     print(np.shape(h_wavefuncs))

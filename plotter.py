@@ -34,20 +34,26 @@ def read_data():
 
 def ploty():
     '''
-    gggg
+    
+
+    
     '''
     energies, potential, wavefuncs, expvalues = read_data()
 
+    scale = input('Scale pls ')
     plt.subplot(1,2,1)
-    plt.plot(potential[:, 0],potential[:,1])
+    for ii in range(len(energies)):
+        plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii])
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
-    #plt.hlines()
+    plt.hlines(energies,-2,2, colors= 'grey')
     plt.xlabel('x [Bohr]' )
     plt.ylabel('Energy [Hartree]')
 
     plt.subplot(1,2,2)
+    plt.hlines(energies,0,2, colors='grey')
     plt.title(r'$ \sigma_x $')
     plt.xlabel('x [Bohr]')
-    plt.plot(potential,potential)
+    plt.plot(expvalues[:,1],energies, 'x')
     plt.show()
+
 ploty()

@@ -28,7 +28,7 @@ def interpol(xvalues, yvalues, inttype):
     return int_fct
 
 def potential_grid(xmin, xmax, xnum, int_fct):
-    """"
+    """
     Function that creates a grid (2D array) of Potential values and
     their corresponding x-values
     Args:
