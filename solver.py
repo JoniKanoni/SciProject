@@ -5,31 +5,6 @@ import numpy as np
 import scipy.linalg as la
 
 
-def diag_solver(hamiltonian, xnum, first_val, last_val):
-    """
-    Function that diagonalizes the hamiltonian
-    
-    Args:
-        mass:       Mass of the particle
-        potential:  Potential grid with corresponding x-values.
-                    (x-values in first column)
-                    The x-values have to be equidistant
-        xnum:       Number of x-values in the grid
-        first_val:  Number of first desired eigenvalue
-        last_val:   Number of last desired eigenvalue
-        
-    Returns:
-        eigvals:    1D Array that contains the n eigenvalues
-        wavefuncs:  n-D Array that contains the corresponding wavefuncs
-    """
-    eigvals, wavefuncs = la.eigh(hamiltonian, eigvals = (first_val-1,last_val-1))
-    """
-    wavefuncs = np.zeros((xnum+2,last_val-first_val+2))
-    print(np.shape(h_wavefuncs))
-    print(np.shape(wavefuncs))
-    wavefuncs[:,1:xnum+1] = h_wavefuncs[:,:]
-    """
-    return eigvals, wavefuncs
 
 def Integrate(fct,xvals):
     """
@@ -69,7 +44,7 @@ def QM_Norming(fct, xvals):
 
 
 
-def QM_position_info(wavefunc, xvals):
+def QM_position_info(wavefuncs, xvalues = None):
     """
     Function that computes the expectation value for the position of a particle, as well
     as the uncertainty of the position based on given 1D-wavefunction and xvalue grid.
@@ -83,7 +58,29 @@ def QM_position_info(wavefunc, xvals):
         exp_x:      Expectationvalue for the position (float)
         unc_x:      Uncertainty of position (float)
     """
-    exp_x = Integrate(np.square(np.abs(wavefunc))*xvals,xvals)
-    exp_x2 = Integrate(np.square(np.abs(wavefunc))*np.square(xvals),xvals)
-    unc_x = np.sqrt(exp_x2 - exp_x**2)
-    return exp_x, unc_x
+    eigcount = np.shape(wavefuncs)[1]
+    if xvalues == None:
+        expvalues = np.zeros((eigcount-1, 2))
+        for ii in range (0,eigcount-1):
+            expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii+1]))*wavefuncs[:, 0],wavefuncs[:, 0])
+            exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii+1]))*np.square(wavefuncs[:, 0]),wavefuncs[:, 0])
+            expvalues[ii,1] = np.sqrt(exp_x2 - expvalues[ii,0])
+    else:
+        expvalues = np.zeros((eigcount, 2))
+        for ii in range (0,eigcount):
+            expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
+            exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
+            expvalues[ii,1] = np.sqrt(exp_x2 - expvalues[ii,0])
+    return expvalues
+
+def QM_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
+    """
+    Function that computes the wavefunction based on a hamiltonian in position basis
+    """
+    energies, eigenvec = la.eigh(hamiltonian, eigvals = (first_val-1,last_val-1))
+    wavefuncs = np.zeros((xnum-2, last_val - first_val + 2))
+    wavefuncs[:,0] = xvalues
+    for ii in range (1,last_val - first_val + 2):
+        wavefuncs[:,ii] = QM_Norming(eigenvec[:,ii-1], xvalues)
+    return energies, wavefuncs
+    

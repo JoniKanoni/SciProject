@@ -20,21 +20,13 @@ def main():
     potential = ip.potential_grid(xmin, xmax, xnum, pot[:, 0], pot[:, 1], inttype)
     hamiltonian = ip.hamilton_operator(potential, mass, xnum)
 
-    #find Eigenvalues and Eigenvectors
-    energies, eigenvec = (solver.diag_solver(hamiltonian, xnum, first_val, last_val))
-
-    #Norming
-    wavefuncs = np.zeros((xnum-2, last_val - first_val + 2))
-    print(wavefuncs, np.shape(wavefuncs))
-    expvalues = np.zeros((last_val - first_val + 1, 2))
-    wavefuncs[:,0] = potential[1:xnum - 1, 0]
-    for ii in range (0,last_val - first_val + 1):
-        wavefuncs[:,ii+1] = solver.QM_Norming(eigenvec[:,ii], potential[1:xnum - 1, 0])
-        print(solver.Integrate(wavefuncs[:,ii+1]**2,potential[1:xnum - 1, 0]))
-        expvalues[ii,:] = solver.QM_position_info(wavefuncs[:,ii+1], potential[1:xnum - 1, 0])
+    #find energies/eigenvalues and wavefunctions
+    energies, wavefuncs = solver.QM_wavefct(hamiltonian, xnum, first_val, last_val, potential[1:xnum - 1, 0])
+    
+    #find expectation value for position as well as variance
+    expvalues = solver.QM_position_info(wavefuncs)
     print(expvalues)
-    #Expectationvalue and Variance
-    #Save calculated data
+
     reader.savedata(inputpath, potential, energies, wavefuncs, expvalues)
 
 if __name__ == '__main__':
