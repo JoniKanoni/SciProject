@@ -44,7 +44,7 @@ def QM_Norming(fct, xvals):
 
 
 
-def QM_position_info(wavefuncs, xvalues = None):
+def QM_position_info(wavefuncs, xvalues = np.array([])):
     """
     Function that computes the expectation value for the position of a particle, as well
     as the uncertainty of the position based on given 1D-wavefunction and xvalue grid.
@@ -59,7 +59,7 @@ def QM_position_info(wavefuncs, xvalues = None):
         unc_x:      Uncertainty of position (float)
     """
     eigcount = np.shape(wavefuncs)[1]
-    if xvalues == None:
+    if xvalues == np.array([]):
         expvalues = np.zeros((eigcount-1, 2))
         for ii in range (0,eigcount-1):
             expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii+1]))*wavefuncs[:, 0],wavefuncs[:, 0])
@@ -71,6 +71,7 @@ def QM_position_info(wavefuncs, xvalues = None):
             expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
             exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
             expvalues[ii,1] = np.sqrt(exp_x2 - expvalues[ii,0])
+    print('!!!!!!!!!EXPVAL2_NUM:',exp_x2, '!!!!!!!!!!!')
     return expvalues
 
 def QM_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
