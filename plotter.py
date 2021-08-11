@@ -21,16 +21,14 @@ def read_data():
     path = input('Pls give Ordner: ')
 
     energies_path = os.path.join(path, 'energies.dat')
-    potential_path = os.path.join(path, 'potential.dat')
     wavefuncs_path = os.path.join(path, 'wavefuncs.dat')
     expvalues_path = os.path.join(path, 'expvalues.dat')
 
     energies = np.loadtxt(energies_path)
-    potential = np.loadtxt(potential_path)
     wavefuncs = np.loadtxt(wavefuncs_path)
     expvalues = np.loadtxt(expvalues_path)
 
-    return energies, potential, wavefuncs, expvalues
+    return energies, wavefuncs, expvalues
 
 def ploty():
     '''
@@ -39,31 +37,24 @@ def ploty():
     Args:
         ggd
         gggg
-
-    
     '''
-    energies, potential, wavefuncs, expvalues = read_data()
+    energies, wavefuncs, expvalues = read_data()
     question =  input('Use auto generated settings? (Y/N) ')
-    
-    if question == 'Y' or question == 'y':
+    if question in ('Y','y'):
         xmin = min(wavefuncs[:,0])
         xmax = max(wavefuncs[:,0])
-        
         ymin = 0
         ymax = np.amax(wavefuncs[:,1:]) + max(energies)
-        
         scale = 0.3
-    else: 
-        print('fuck you')    
+    else:
+        print('fuck you')
         scale = input('Scale pls ')
-        xmin, xmax = [float(ii) for ii in input('Xmin, xmax pls, serparted by space ').split() ]
-        ymin, ymax = [float(ii) for ii in input('Ymin, Ymax pls ').split() ]
-        
-    
+        xmin, xmax = [float(ii) for ii in input('Xmin, xmax pls, serparted by space ').split()]
+        ymin, ymax = [float(ii) for ii in input('Ymin, Ymax pls ').split()]
     plt.subplot(1,2,1)
-    for ii in range(len(energies)):
-        plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii], )
-    plt.xlim(xmin, xmax )
+    for ii, _ in enumerate(energies):
+        plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii])
+    plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
     plt.hlines(energies,-2,2, colors= 'grey')
@@ -76,7 +67,5 @@ def ploty():
     plt.hlines(energies,0,2, colors='grey')
     plt.title(r'$ \sigma_x $')
     plt.xlabel('x [Bohr]')
-    plt.plot(expvalues[:,1],energies, 'x')
+    plt.plot(expvalues[:,1], energies, 'x')
     plt.show()
-    
-ploty()

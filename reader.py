@@ -24,7 +24,7 @@ def getdata():
                         x-values([:,0])
     '''
     try:
-        inputpath = '' #"schrodinger.inp" 
+        inputpath = '' #"schrodinger.inp"
         open("schrodinger.inp")
         inputdata = 'schrodinger.inp'
     except:
@@ -73,4 +73,3 @@ def savedata(savepath, potential, energies, wavefuncs, expvalues):
     np.savetxt(os.path.join(savepath, 'wavefuncs.dat'), wavefuncs)
 
     np.savetxt(os.path.join(savepath, 'expvalues.dat'), expvalues)
-    
