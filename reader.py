@@ -7,7 +7,7 @@ import numpy as np
 
 
 
-def getdata():
+def getdata(inputpath = ''):
     '''
     Reads data from input file
     Args:
@@ -24,9 +24,8 @@ def getdata():
                         x-values([:,0])
     '''
     try:
-        inputpath = '' #"schrodinger.inp"
-        open("schrodinger.inp")
-        inputdata = 'schrodinger.inp'
+        inputdata = os.path.join(inputpath, 'schrodinger.inp')
+        open(inputdata)
     except:
         inputpath = input("give data: pls give path danke schön wunder bar ")
         inputdata = os.path.join(inputpath, 'schrodinger.inp')
@@ -61,11 +60,15 @@ def getdata():
 
 def savedata(savepath, potential, energies, wavefuncs, expvalues):
     '''
-    inputpath/savepath als global?
+    Args:
+        savepath:           path to save files
+        potential:          array of potential values
+        energies:           array of energie values
+        wavefuncs:          array of wavefunction values
+        expvalues:          array of expected values
+    Returns:
+        Saved files, potential.dat, energies.dat, wavefuncs.dat, expvalues.dat at savepath location.
     '''
-
-
-
     np.savetxt(os.path.join(savepath, 'potential.dat'), potential)
 
     np.savetxt(os.path.join(savepath, 'energies.dat'), energies)
