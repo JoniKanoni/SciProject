@@ -18,7 +18,7 @@ def read_data():
 
 
     '''
-    path = input('Pls give Ordner: ')
+    path = input('Please give Inputpath: ')
 
     energies_path = os.path.join(path, 'energies.dat')
     wavefuncs_path = os.path.join(path, 'wavefuncs.dat')
@@ -34,9 +34,9 @@ def ploty():
     '''
     Plots the wavefunctions, energies and expected values calculated by the solver
 
-    Args:
-        ggd
-        gggg
+    Args: None
+        
+    Returns: None
     '''
     energies, wavefuncs, expvalues = read_data()
     question =  input('Use auto generated settings? (Y/N) ')
@@ -47,8 +47,7 @@ def ploty():
         ymax = np.amax(wavefuncs[:,1:]) + max(energies)
         scale = 0.3
     else:
-        print('fuck you')
-        scale = input('Scale pls ')
+        scale = input('Scale please: ')
         xmin, xmax = [float(ii) for ii in input('Xmin, xmax pls, serparted by space ').split()]
         ymin, ymax = [float(ii) for ii in input('Ymin, Ymax pls ').split()]
     plt.subplot(1,2,1)
