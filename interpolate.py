@@ -27,7 +27,7 @@ def interpol(xvalues, yvalues, inttype):
         int_fct = lagrange(xvalues, yvalues)
     return int_fct
 
-def potential_grid(xmin, xmax, xnum, int_fct):
+def potential_grid(xmin, xmax, xnum, xvalues, potvalues, inttype):
     """
     Function that creates a grid (2D array) of Potential values and
     their corresponding x-values
@@ -44,5 +44,30 @@ def potential_grid(xmin, xmax, xnum, int_fct):
 
     potential = np.zeros((xnum,2))
     potential[:,0] = np.linspace(xmin, xmax, xnum)
-    potential[:,1] = int_fct(potential[:,0])
+    potential[:,1] = interpol(xvalues, potvalues, inttype)(potential[:,0])
     return potential
+
+def hamilton_operator(potential, mass, xnum):
+    """
+    Function that creates the hamiltonian based on a potential grid and mass
+    of the particle
+    
+    Args:
+        potential:  2D array that contains the potential in the second column
+                    and the corresponding x-values in the first column
+        mass:       Mass of the particle
+        xnum:       Number of points in the grid
+        
+    returns:
+        hamiltonian:        Matrix of the hamiltonian on the spacegrid of the potential
+    """
+
+    hamiltonian = np.zeros((xnum-2, xnum-2))
+    a = 1/(mass * (potential[1,0] - potential[0,0])**2)
+    for ii in range(0,xnum-2):
+        if ii - 1 >= 0:
+            hamiltonian[ii, ii - 1] = - a / 2
+        if ii + 1 < xnum-2:
+            hamiltonian[ii, ii + 1] = - a / 2
+        hamiltonian[ii, ii] = potential[ii+1, 1] + a
+    return hamiltonian
