@@ -24,7 +24,7 @@ def main():
     energies, wavefuncs = solver.QM_wavefct(hamiltonian, xnum, first_val, last_val, potential[1:xnum - 1, 0])
     
     #find expectation value for position as well as variance
-    expvalues = solver.QM_position_info(wavefuncs)
+    expvalues = solver.QM_position_info(wavefuncs[:,1:], wavefuncs[:,0])
     print(expvalues)
 
     reader.savedata(inputpath, potential, energies, wavefuncs, expvalues)
