@@ -7,11 +7,12 @@ import numpy as np
 
 
 
-def getdata(inputpath = ''):
+def get_data(inputpath = ''):
     '''
     Reads data from input file
     Args:
-        None yet
+        inputpath:      inputpath
+
     Returns:
         masse:           mass of the particle as float
         xmin:           first considered x-value for interpolation as float
@@ -19,7 +20,6 @@ def getdata(inputpath = ''):
         xnum:           Number of Points used for interpolation
         first, last:    first and last desired eigenvalue as int
         interpolation:  Desired interpolation type as string
-        numinterpol:    Number of given x-values with corresponding potential
         potential:      2D Array of the Potential ([:,1]) and corresponding
                         x-values([:,0])
     '''
@@ -36,15 +36,15 @@ def getdata(inputpath = ''):
         firstlast = np.array(data.readline().split()[0:2]).astype(int)
         first, last = firstlast[0], firstlast[1]
         interpolation = data.readline().split()[0]
-        numinterpol = int(data.readline().split()[0])
+        data.readline()
         pot = np.loadtxt(data.readlines())
 
-    return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, pot, inputpath
+    return masse, xmin, xmax, xnum, first, last, interpolation, pot, inputpath
 
 
 
 
-def savedata(savepath, potential, energies, wavefuncs, expvalues):
+def save_data(savepath, potential, energies, wavefuncs, expvalues):
     '''
     Args:
         savepath:           path to save files
@@ -52,6 +52,7 @@ def savedata(savepath, potential, energies, wavefuncs, expvalues):
         energies:           array of energie values
         wavefuncs:          array of wavefunction values
         expvalues:          array of expected values
+
     Returns:
         Saved files, potential.dat, energies.dat, wavefuncs.dat, expvalues.dat at savepath location.
     '''

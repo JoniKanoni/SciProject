@@ -36,7 +36,7 @@ def ploty():
     Plots the wavefunctions, energies and expected values calculated by the solver
 
     Args: None
-        
+
     Returns: None
     '''
     energies, wavefuncs, expvalues, potential = read_data()
@@ -71,5 +71,3 @@ def ploty():
     plt.xlabel('x [Bohr]')
     plt.plot(expvalues[:,1], energies, 'x')
     plt.show()
-
-ploty()
