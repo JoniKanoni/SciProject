@@ -30,31 +30,17 @@ def getdata(inputpath = ''):
         inputpath = input("give data: pls give path danke schön wunder bar ")
         inputdata = os.path.join(inputpath, 'schrodinger.inp')
     with open(inputdata, "r") as data:
-        masse = data.readline()
-        masse = float(masse.replace(' # mass', ''))
-
-        minmax = data.readline()
-        minmax = minmax.replace('# xMin xMax nPoint', '')
-        minmax = minmax.split()
-        xmin, xmax, xnum = minmax
-        xmin = float(xmin)
-        xmax = float(xmax)
-        xnum = int(xnum)
-        firstlast = data.readline()
-        firstlast = firstlast.replace('# first and last eigenvalue to print', '')
-        first, last = firstlast.split()
-        first = int(first)
-        last = int(last)
-        interpolation = data.readline()
-        interpolation = interpolation.replace('# interpolation type', '')
-        interpolation = interpolation.strip()
-        numinterpol = data.readline()
-        numinterpol = numinterpol.replace('# nr. of interpolation points and xy declarations', '')
-        numinterpol = numinterpol.strip()
-        numinterpol = float(numinterpol)
+        masse = float(data.readline().split()[0])
+        minmax = np.array(data.readline().split()[0:3]).astype(float)
+        xmin, xmax, xnum = minmax[0], minmax[1], int(minmax[2])
+        firstlast = np.array(data.readline().split()[0:2]).astype(int)
+        first, last = firstlast[0], firstlast[1]
+        interpolation = data.readline().split()[0]
+        numinterpol = int(data.readline().split()[0])
         pot = np.loadtxt(data.readlines())
 
     return masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, pot, inputpath
+
 
 
 
