@@ -23,12 +23,13 @@ def read_data():
     energies_path = os.path.join(path, 'energies.dat')
     wavefuncs_path = os.path.join(path, 'wavefuncs.dat')
     expvalues_path = os.path.join(path, 'expvalues.dat')
+    potential_path = os.path.join(path, 'potential.dat')
 
     energies = np.loadtxt(energies_path)
     wavefuncs = np.loadtxt(wavefuncs_path)
     expvalues = np.loadtxt(expvalues_path)
-
-    return energies, wavefuncs, expvalues
+    potential = np.loadtxt(potential_path)
+    return energies, wavefuncs, expvalues, potential
 
 def ploty():
     '''
@@ -38,12 +39,12 @@ def ploty():
         
     Returns: None
     '''
-    energies, wavefuncs, expvalues = read_data()
+    energies, wavefuncs, expvalues, potential = read_data()
     question =  input('Use auto generated settings? (Y/N) ')
     if question in ('Y','y'):
-        xmin = min(wavefuncs[:,0])
-        xmax = max(wavefuncs[:,0])
-        ymin = 0
+        xmin = np.min(wavefuncs[:,0])
+        xmax = np.max(wavefuncs[:,0])
+        ymin = np.min(potential[:,1])*1.1
         ymax = np.amax(wavefuncs[:,1:]) + max(energies)
         scale = 0.3
     else:
@@ -53,18 +54,22 @@ def ploty():
     plt.subplot(1,2,1)
     for ii, _ in enumerate(energies):
         plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii])
+    plt.plot(potential[1:len(potential)-1,0], potential[1:len(potential)-1,1], color='black' )
+    plt.plot(expvalues[:,0], energies, marker='x', linewidth=0)
     plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
     plt.title(r'Potential, eigenstates, $\langle \mathrm{x} \rangle$')
-    plt.hlines(energies,-2,2, colors= 'grey')
+    plt.hlines(energies,np.min(wavefuncs[:,0]),np.max(wavefuncs[:,0]), colors= 'grey')
     plt.xlabel('x [Bohr]' )
     plt.ylabel('Energy [Hartree]')
 
     plt.subplot(1,2,2)
     plt.xlim(0, 1.1*np.amax(expvalues[:,1]))
     plt.ylim(ymin, ymax)
-    plt.hlines(energies,0,2, colors='grey')
+    plt.hlines(energies,0,np.max(1.1*expvalues[:,1]), colors='grey')
     plt.title(r'$ \sigma_x $')
     plt.xlabel('x [Bohr]')
     plt.plot(expvalues[:,1], energies, 'x')
     plt.show()
+
+ploty()

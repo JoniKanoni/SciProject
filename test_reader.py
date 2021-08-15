@@ -15,7 +15,7 @@ def test_unendlich():
     interpolationtest = 'linear'
     numinterpolationtest = 2
     resttest = np.array([[-2.0, 0.0], [2.0, 0.0]])
-    masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, rest, inputpath = reader.getdata()
+    masse, xmin, xmax, xnum, first, last, interpolation, numinterpol, rest, __ = reader.getdata()
     assert masse == massetest
     assert xmin == xmintest
     assert xmax == xmaxtest
