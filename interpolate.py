@@ -22,7 +22,7 @@ def interpol(xvalues, yvalues, inttype):
     if inttype == 'linear':
         int_fct = interp1d(xvalues, yvalues, kind='linear')
     elif inttype == 'cspline':
-        int_fct = CubicSpline(xvalues, yvalues, bc_type='natural')
+        int_fct = CubicSpline(xvalues, yvalues)
     elif inttype == 'polynomial':
         int_fct = lagrange(xvalues, yvalues)
     return int_fct
