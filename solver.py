@@ -45,7 +45,7 @@ def QM_Norming(fct, xvals):
 
 
 
-def QM_position_info(wavefuncs, xvalues = np.array([])):
+def QM_position_info(wavefuncs, xvalues):
     """
     Function that computes the expectation value for the position of a particle, as well
     as the uncertainty of the position based on given 1D-wavefunction and xvalue grid.
@@ -60,18 +60,11 @@ def QM_position_info(wavefuncs, xvalues = np.array([])):
         unc_x:      Uncertainty of position (float)
     """
     eigcount = np.shape(wavefuncs)[1]
-    if xvalues == np.array([]):
-        expvalues = np.zeros((eigcount-1, 2))
-        for ii in range (0,eigcount-1):
-            expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii+1]))*wavefuncs[:, 0],wavefuncs[:, 0])
-            exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii+1]))*np.square(wavefuncs[:, 0]),wavefuncs[:, 0])
-            expvalues[ii,1] = np.sqrt(exp_x2 - expvalues[ii,0])
-    else:
-        expvalues = np.zeros((eigcount, 2))
-        for ii in range (0,eigcount):
-            expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
-            exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
-            expvalues[ii,1] = np.sqrt(exp_x2 - np.square(expvalues[ii,0]))
+    expvalues = np.zeros((eigcount, 2))
+    for ii in range (0,eigcount):
+        expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
+        exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
+        expvalues[ii,1] = np.sqrt(exp_x2 - np.square(expvalues[ii,0]))
     return expvalues
 
 def QM_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
