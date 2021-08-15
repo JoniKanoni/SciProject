@@ -20,7 +20,8 @@ def Integrate(fct,xvals):
     Returns:
         Integral:   Value of the Integral (float)
     """
-    Integral = np.sum(fct) * (xvals[1] - xvals[0])
+    deltax = (xvals[1] - xvals[0])
+    Integral = np.sum(fct[1:]) * deltax
     return Integral
 
 
@@ -70,8 +71,7 @@ def QM_position_info(wavefuncs, xvalues = np.array([])):
         for ii in range (0,eigcount):
             expvalues[ii,0] = Integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
             exp_x2 = Integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
-            expvalues[ii,1] = np.sqrt(exp_x2 - expvalues[ii,0])
-    print('!!!!!!!!!EXPVAL2_NUM:',exp_x2, '!!!!!!!!!!!')
+            expvalues[ii,1] = np.sqrt(exp_x2 - np.square(expvalues[ii,0]))
     return expvalues
 
 def QM_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
