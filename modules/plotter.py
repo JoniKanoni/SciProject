@@ -56,9 +56,9 @@ def ploty(energies, wavefuncs, expvalues, potential, path):
         ymax = np.amax(wavefuncs[:,1:]) + max(energies)
         scale = 0.3
     else:
-        scale = input('Scale please: ')
-        xmin, xmax = [float(ii) for ii in input('Xmin, xmax pls, serparted by space ').split()]
-        ymin, ymax = [float(ii) for ii in input('Ymin, Ymax pls ').split()]
+        scale = input('Enter scaling factor for wavefunction plot: ')
+        xmin, xmax = [float(ii) for ii in input('Enter Xmin Xmax, seperated by space: ').split()]
+        ymin, ymax = [float(ii) for ii in input('Enter Ymin Ymax, seperated by space:  ').split()]
     plt.subplot(1,2,1)
     for ii, _ in enumerate(energies):
         plt.plot(wavefuncs[:,0], float(scale)*+wavefuncs[:,ii+1]+energies[ii])
