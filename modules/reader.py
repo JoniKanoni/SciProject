@@ -1,5 +1,5 @@
 '''
-Module that reads data
+Module containing functions for reading input data and saving ouput data
 '''
 import os.path
 import numpy as np
@@ -7,59 +7,68 @@ import numpy as np
 
 
 
-def get_data(inputpath = ''):
+def get_data(input_path = ''):
     '''
-    Reads data from input file
+    Reads data from an input file
+
     Args:
-        inputpath:      inputpath
+        input_path:      String that contains the path to the data that is about
+                        to be read
 
     Returns:
-        masse:           mass of the particle as float
+        masse:          mass of the particle as float
         xmin:           first considered x-value for interpolation as float
         xmax:           last considered x-value for interpolation as float
-        xnum:           Number of Points used for interpolation
+        xnum:           Number of Points used for interpolation as int
         first, last:    first and last desired eigenvalue as int
-        interpolation:  Desired interpolation type as string
-        potential:      2D Array of the Potential ([:,1]) and corresponding
-                        x-values([:,0])
+        int_type:       Desired interpolation type as string
+                        ('linear', 'natural' or 'polynomial')
+        pot_points:     2D Array of known points of the potential ([:,1])
+                        and corresponding x-values([:,0])
+        input_path:     String that contains the path to the data that is about
+                        to be read
     '''
     try:
-        inputdata = os.path.join(inputpath, 'schrodinger.inp')
-        open(inputdata)
+        input_data = os.path.join(input_path, 'schrodinger.inp')
+        open(input_data)
     except:
-        inputpath = input("give data: pls give path danke schön wunder bar ")
-        inputdata = os.path.join(inputpath, 'schrodinger.inp')
-    with open(inputdata, "r") as data:
+        input_path = input("Please enter the path to the input file: ")
+        input_data = os.path.join(input_path, 'schrodinger.inp')
+    with open(input_data, "r") as data:
         masse = float(data.readline().split()[0])
         minmax = np.array(data.readline().split()[0:3]).astype(float)
         xmin, xmax, xnum = minmax[0], minmax[1], int(minmax[2])
-        firstlast = np.array(data.readline().split()[0:2]).astype(int)
-        first, last = firstlast[0], firstlast[1]
-        interpolation = data.readline().split()[0]
+        first_last = np.array(data.readline().split()[0:2]).astype(int)
+        first, last = first_last[0], first_last[1]
+        int_type = data.readline().split()[0]
         data.readline()
-        pot = np.loadtxt(data.readlines())
+        pot_points = np.loadtxt(data.readlines())
 
-    return masse, xmin, xmax, xnum, first, last, interpolation, pot, inputpath
-
-
+    return masse, xmin, xmax, xnum, first, last, int_type, pot_points, input_path
 
 
-def save_data(savepath, potential, energies, wavefuncs, expvalues):
+
+
+def save_data(save_path, potential, energies, wavefuncs, expvalues):
     '''
+    Function that saves computed data of a quantummechanical system
+    Saves files: potential.dat, energies.dat, wavefuncs.dat, expvalues.dat 
+    at savepath location.
+
     Args:
-        savepath:           path to save files
+        save_path:           path to save files
         potential:          array of potential values
         energies:           array of energie values
         wavefuncs:          array of wavefunction values
         expvalues:          array of expected values
 
     Returns:
-        Saved files, potential.dat, energies.dat, wavefuncs.dat, expvalues.dat at savepath location.
+        None
     '''
-    np.savetxt(os.path.join(savepath, 'potential.dat'), potential)
+    np.savetxt(os.path.join(save_path, 'potential.dat'), potential)
 
-    np.savetxt(os.path.join(savepath, 'energies.dat'), energies)
+    np.savetxt(os.path.join(save_path, 'energies.dat'), energies)
 
-    np.savetxt(os.path.join(savepath, 'wavefuncs.dat'), wavefuncs)
+    np.savetxt(os.path.join(save_path, 'wavefuncs.dat'), wavefuncs)
 
-    np.savetxt(os.path.join(savepath, 'expvalues.dat'), expvalues)
+    np.savetxt(os.path.join(save_path, 'expvalues.dat'), expvalues)

@@ -1,0 +1,6 @@
+{
+  "test_reader.py::test_unendlich": true,
+  "test_solver.py::test_with_reference_energies_wavefuncs": true,
+  "test_solver.py::test_with_reference_expvals": true,
+  "test_solver.py::test_with_reference_potential": true
+}
