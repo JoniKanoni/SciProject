@@ -3,9 +3,9 @@ This module contains tests for the solver module
 """
 import numpy as np
 import numpy.random as random
-import solver
-import reader
-import interpolate as ip
+from modules import solver
+from modules import reader
+from modules import interpolate as ip
 
 foldernames = ['infinite_well', 'finite_well', 'harmonic_potential',
                'double_linear_well', 'double_cubic_well', 'asymetric_well']

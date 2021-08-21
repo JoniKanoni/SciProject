@@ -2,9 +2,9 @@
 Main routine for solving a stationary 1D Schroedinger equation
 """
 
-import reader
-import interpolate as ip
-import solver
+from modules import reader
+from modules import interpolate as ip
+from modules import solver
 
 def main():
     '''

@@ -2,7 +2,7 @@
 Main routine for plotting the results of the solver
 '''
 
-import plotter
+from modules import plotter
 
 def main():
     '''
