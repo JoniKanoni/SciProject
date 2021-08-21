@@ -20,6 +20,7 @@ def _integrate(fct,xvalues):
     Returns:
         integral:   Value of the Integral (float)
     """
+
     delta_x = (xvalues[1] - xvalues[0])
     integral = np.sum(fct[1:]) * delta_x
     return integral

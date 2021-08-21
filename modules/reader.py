@@ -1,6 +1,5 @@
-'''
-Module containing functions for reading input data and saving ouput data
-'''
+""" Module containing functions for reading input data and saving ouput data """
+
 import os.path
 import numpy as np
 
@@ -8,9 +7,9 @@ import numpy as np
 
 
 def get_data(input_path = ''):
-    '''
+    """
     Reads data from an input file
-
+    
     Args:
         input_path:      String that contains the path to the data that is about
                         to be read
@@ -27,12 +26,14 @@ def get_data(input_path = ''):
                         and corresponding x-values([:,0])
         input_path:     String that contains the path to the data that is about
                         to be read
-    '''
+    """
+ 
     try:
         input_data = os.path.join(input_path, 'schrodinger.inp')
         open(input_data)
     except:
-        input_path = input("Please enter the path to the input file: ")
+        print("Whoops there is no schrodinger.inp in that directory")
+        input_path = input("Please enter a new directory: ")
         input_data = os.path.join(input_path, 'schrodinger.inp')
     with open(input_data, "r") as data:
         masse = float(data.readline().split()[0])
@@ -65,6 +66,7 @@ def save_data(save_path, potential, energies, wavefuncs, expvalues):
     Returns:
         None
     '''
+    
     np.savetxt(os.path.join(save_path, 'potential.dat'), potential)
 
     np.savetxt(os.path.join(save_path, 'energies.dat'), energies)
