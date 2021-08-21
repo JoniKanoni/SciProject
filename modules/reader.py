@@ -52,7 +52,7 @@ def get_data(input_path = ''):
 def save_data(save_path, potential, energies, wavefuncs, expvalues):
     '''
     Function that saves computed data of a quantummechanical system
-    Saves files: potential.dat, energies.dat, wavefuncs.dat, expvalues.dat 
+    Saves files: potential.dat, energies.dat, wavefuncs.dat, expvalues.dat
     at savepath location.
 
     Args:

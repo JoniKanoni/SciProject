@@ -6,7 +6,7 @@ import scipy.linalg as la
 
 
 
-def integrate(fct,xvalues):
+def _integrate(fct,xvalues):
     """
     Function that numerically integrates a 1D function
     in the form of an array over a given xvalue grid
@@ -26,7 +26,7 @@ def integrate(fct,xvalues):
 
 
 
-def qm_norming(fct, xvalues):
+def _qm_norming(fct, xvalues):
     """
     Function that norms a L2-function based on given xvalue grid.
     The function is assumed to be 0 outside the grid.
@@ -39,7 +39,7 @@ def qm_norming(fct, xvalues):
     Returns:
         fct_normed: 1D Array that contains the values of the normed function
     """
-    fct_normed = fct / np.sqrt(integrate(np.square(np.abs(fct)), xvalues))
+    fct_normed = fct / np.sqrt(_integrate(np.square(np.abs(fct)), xvalues))
     return fct_normed
 
 
@@ -49,7 +49,7 @@ def qm_position_info(wavefuncs, xvalues):
     Function that computes the expectation value for the position of a particle, as well
     as the variance of the position based on given 1D-wavefunction and xvalue grid.
     The function is assumed to be 0 outside the grid.
-    
+
     Args:
         wavefunc:   1D array of values of a wavefunction
         xvalues:    1D array of the corresponding x values
@@ -60,8 +60,8 @@ def qm_position_info(wavefuncs, xvalues):
     eig_count = np.shape(wavefuncs)[1]
     expvalues = np.zeros((eig_count, 2))
     for ii in range (0,eig_count):
-        expvalues[ii,0] = integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
-        exp_x2 = integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
+        expvalues[ii,0] = _integrate(np.square(np.abs(wavefuncs[:,ii]))*xvalues,xvalues)
+        exp_x2 = _integrate(np.square(np.abs(wavefuncs[:,ii]))*np.square(xvalues),xvalues)
         expvalues[ii,1] = np.sqrt(exp_x2 - np.square(expvalues[ii,0]))
     return expvalues
 
@@ -69,7 +69,7 @@ def qm_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
     """
     Function that computes the wavefunction based on a hamiltonian in position basis.
     The position has to be 1-dimensional
-    
+
     Args:
         hamiltonian:    The hamiltonian in position basis (ndarray)
         xnum:           Number of considered xvalues
@@ -85,6 +85,6 @@ def qm_wavefct(hamiltonian, xnum, first_val, last_val, xvalues):
     wavefuncs = np.zeros((xnum-2, last_val - first_val + 2))
     wavefuncs[:,0] = xvalues
     for ii in range (1,last_val - first_val + 2):
-        wavefuncs[:,ii] = qm_norming(eigen_vec[:,ii-1], xvalues)
+        wavefuncs[:,ii] = _qm_norming(eigen_vec[:,ii-1], xvalues)
     return energies, wavefuncs
     

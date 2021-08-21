@@ -5,7 +5,7 @@ Module with multiple options to interpolate a given function
 import numpy as np
 from scipy.interpolate import CubicSpline, interp1d, lagrange
 
-def interpol(xvalues, yvalues, inttype):
+def _interpol(xvalues, yvalues, inttype):
     '''
     Function that creates an interpolation function based on Input
 
@@ -27,7 +27,7 @@ def interpol(xvalues, yvalues, inttype):
         int_fct = lagrange(xvalues, yvalues)
     return int_fct
 
-def potential_grid(xmin, xmax, xnum, xvalues, potvalues, inttype):
+def potential_grid(xmin, xmax, xnum, xvalues, potvalues, int_type):
     """
     Function that creates a grid (2D array) of Potential values and
     their corresponding x-values
@@ -44,7 +44,7 @@ def potential_grid(xmin, xmax, xnum, xvalues, potvalues, inttype):
 
     potential = np.zeros((xnum,2))
     potential[:,0] = np.linspace(xmin, xmax, xnum)
-    potential[:,1] = interpol(xvalues, potvalues, inttype)(potential[:,0])
+    potential[:,1] = _interpol(xvalues, potvalues, int_type)(potential[:,0])
     return potential
 
 def hamilton_operator(potential, mass, xnum):
