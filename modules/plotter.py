@@ -31,15 +31,18 @@ def read_data():
     potential = np.loadtxt(potential_path)
     return energies, wavefuncs, expvalues, potential
 
-def ploty():
+def ploty(energies, wavefuncs, expvalues, potential):
     '''
     Plots the wavefunctions, energies and expected values calculated by the solver
 
-    Args: None
+    Args:   energies,
+            wavefuncs,
+            expvalues,
+            potential
 
     Returns: None
     '''
-    energies, wavefuncs, expvalues, potential = read_data()
+    #energies, wavefuncs, expvalues, potential = read_data()
     question =  input('Use auto generated settings? (Y/N) ')
     if question in ('Y','y'):
         xmin = np.min(wavefuncs[:,0])
